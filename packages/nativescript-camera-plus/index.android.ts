@@ -75,6 +75,7 @@ export class CameraPlus extends CameraPlusBase {
 	@GetSetProperty()
 	public isRecording: boolean;
 	public events: ICameraPlusEvents;
+	private _lastPhotoFile: java.io.File = null;
 	private _nativeView: android.widget.RelativeLayout;
 	private _owner: WeakRef<any>;
 	private _mediaRecorder: android.media.MediaRecorder;
@@ -111,6 +112,11 @@ export class CameraPlus extends CameraPlusBase {
 
 		this._permissionListener = this._permissionListenerFn.bind(this);
 		this._lastCameraOptions = [];
+		this._lastPhotoFile = null;
+	}
+
+	public getLastPhotoFile() {
+		return this._lastPhotoFile;
 	}
 
 	private isVideoEnabled() {
@@ -291,6 +297,8 @@ export class CameraPlus extends CameraPlusBase {
 			async onCameraPhotoUI(event?: java.io.File) {
 				const owner = this.owner ? this.owner.get() : null;
 				const file = event;
+
+				this._lastPhotoFile = event;
 				const options = owner._lastCameraOptions.shift();
 				let confirmPic;
 				let confirmPicRetakeText;

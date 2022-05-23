@@ -299,7 +299,7 @@ export class CameraPlus extends CameraPlusBase {
 				const owner = this.owner ? this.owner.get() : null;
 				const file = event;
 
-				owner._lastPhotoFile = event;
+				owner._lastPhotoFile = event.getAbsolutePath();
 				const options = owner._lastCameraOptions.shift();
 				let confirmPic;
 				let confirmPicRetakeText;
@@ -341,11 +341,13 @@ export class CameraPlus extends CameraPlusBase {
 					}
 
 					const asset = CamHelpers.assetFromPath(file.getAbsolutePath(), reqWidth, reqHeight, shouldKeepAspectRatio);
-
+					
+					owner._lastPhotoFile = asset
 					owner.sendEvent(CameraPlus.photoCapturedEvent, asset);
 					return;
 				} else {
 					const asset = CamHelpers.assetFromPath(file.getAbsolutePath(), reqWidth, reqHeight, shouldKeepAspectRatio);
+					owner._lastPhotoFile = asset
 					owner.sendEvent(CameraPlus.photoCapturedEvent, asset);
 					return;
 				}

@@ -1,6 +1,6 @@
 {
 	"name": "plugins",
-	"version": "1.0.0",
+	"version": "0.0.0",
 	"license": "MIT",
 	"scripts": {
 		"setup": "npx rimraf node_modules package-lock.json dist tmp yarn.lock && yarn",

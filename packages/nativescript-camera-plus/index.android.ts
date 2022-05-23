@@ -276,6 +276,7 @@ export class CameraPlus extends CameraPlusBase {
 
 	public initNativeView() {
 		super.initNativeView();
+
 		this.on(View.layoutChangedEvent, this._onLayoutChangeListener);
 		const listenerImpl = (fancycamera.CameraEventListenerUI as any).extend({
 			owner: null,
@@ -298,7 +299,7 @@ export class CameraPlus extends CameraPlusBase {
 				const owner = this.owner ? this.owner.get() : null;
 				const file = event;
 
-				this._lastPhotoFile = event;
+				owner._lastPhotoFile = event;
 				const options = owner._lastCameraOptions.shift();
 				let confirmPic;
 				let confirmPicRetakeText;

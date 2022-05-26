@@ -76,6 +76,7 @@ export class CameraPlus extends CameraPlusBase {
 	public isRecording: boolean;
 	public events: ICameraPlusEvents;
 	private _lastPhotoFile: java.io.File = null;
+	private _lastPhotoFilePath: java.io.File = null;
 	private _nativeView: android.widget.RelativeLayout;
 	private _owner: WeakRef<any>;
 	private _mediaRecorder: android.media.MediaRecorder;
@@ -117,6 +118,10 @@ export class CameraPlus extends CameraPlusBase {
 
 	public getLastPhotoFile() {
 		return this._lastPhotoFile;
+	}
+
+	public deleteLastPhotoFile() {
+		return this._lastPhotoFilePath.delete();
 	}
 
 	private isVideoEnabled() {
@@ -299,7 +304,7 @@ export class CameraPlus extends CameraPlusBase {
 				const owner = this.owner ? this.owner.get() : null;
 				const file = event;
 
-				owner._lastPhotoFile = event.getAbsolutePath();
+				owner._lastPhotoFilePath = event;
 				const options = owner._lastCameraOptions.shift();
 				let confirmPic;
 				let confirmPicRetakeText;
